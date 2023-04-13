@@ -1,18 +1,23 @@
 const oracledb = require('oracledb');
+const dotenv = require("dotenv")
+dotenv.config()
 //oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+const userVar = process.env.REACT_APP_USER;
+const passwordVar = process.env.REACT_APP_PASSWORD;
+const connString = process.env.REACT_APP_CONN_STRING;
 
 async function handleRequest(req) {
     let connection;
     try {
         connection = await oracledb.getConnection(
             {
-                user: "marcmiller", 
-                password: "8cYUozvA4mNxc0rQ5xLFjbaM",
-                connectionString: "orcl"
+                user: userVar, 
+                password: passwordVar,
+                connectionString: connString
             }
         );
         //console.log("Successfully connected to Oracle Database");
-       
+        
         const result = await connection.execute(
             req,
             []
