@@ -3,6 +3,7 @@ import { Box, Stack, Typography, TextField, Button } from "@mui/material";
 
 const Save = () => {
   const [name, setName] = useState("");
+  const [queries, setQueries] = useState([]);
 
   return (
     <Box>

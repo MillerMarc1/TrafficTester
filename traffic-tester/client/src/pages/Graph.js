@@ -14,17 +14,16 @@ import {
 const Graph = () => {
   const [time1, setTime1] = useState("");
   const [time2, setTime2] = useState("");
-  const [options, setOptions] = useState([]);
+  //const [options, setOptions] = useState([]);
 
+  //Dummy set of options just to display some data in dropdown menus
+  const options = ["1900", "1905", "1910"];
+
+  //This function executes when the Graph page is loaded
   useEffect(() => {
-    //Get years from date set and set options to years
+    //Get years from data set and set options to years
     //setOptions()
   }, []);
-
-  const handleSelect = (event) => {
-    setTime1(event.target.value);
-    setTime2(event.target.value);
-  };
 
   return (
     <Box>
@@ -48,8 +47,10 @@ const Graph = () => {
                 <Select
                   labelId="graph-time-select-1"
                   value={time1}
-                  label={"-Select"}
-                  onChange={handleSelect}
+                  label={"-Select-"}
+                  onChange={(event) => {
+                    setTime1(event.target.value);
+                  }}
                 >
                   {options.map((option, i) => (
                     <MenuItem key={i} value={option}>
@@ -66,11 +67,15 @@ const Graph = () => {
                 <Select
                   labelId="graph-time-select-2"
                   value={time2}
-                  label={"-Select"}
-                  onChange={handleSelect}
+                  label={"-Select-"}
+                  onChange={(event) => {
+                    setTime2(event.target.value);
+                  }}
                 >
                   {options.map((option, i) => (
-                    <MenuItem key={i}>{option}</MenuItem>
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
