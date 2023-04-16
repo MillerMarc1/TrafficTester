@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, Typography, TextField, Button } from "@mui/material";
+import { Box, Stack, Typography, TextField, Button, Grid } from "@mui/material";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,41 +14,64 @@ const Login = () => {
   };
 
   return (
-    <Box>
-      <Stack alignItems={"center"}>
-        <Typography
-          style={{ color: "#804F3B" }}
-          variant="h1"
-          mt="50px"
-          mb="50px"
-        >
-          Traffic Tester
-        </Typography>
-        <TextField
-          placeholder="Username"
-          value={username}
-          onChange={handleUsername}
-        />
-        <TextField
-          placeholder="Password"
-          value={password}
-          onChange={handlePassword}
-        />
+    <div>
+      <Box>
+        <Stack alignItems={"center"} spacing={1}>
+          <Typography
+            style={{ color: "#804F3B" }}
+            variant="h1"
+            mt="50px"
+            mb="50px"
+          >
+            Traffic Tester
+          </Typography>
+          <TextField
+            required
+            label="Username"
+            value={username}
+            onChange={handleUsername}
+          />
+          <TextField
+            required
+            label="Password"
+            value={password}
+            onChange={handlePassword}
+          />
+        </Stack>
+      </Box>
+      <Box alignItems={"center"}>
         <Button
           href="/graph"
           variant="outlined"
           size="large"
           sx={{
             backgroundColor: "000",
-            marginTop: "100px",
             color: "#804F3B",
             borderColor: "#804F3B",
+            border: 2,
+            marginTop: "10px",
+            marginRight: "5px",
           }}
         >
           Login
         </Button>
-      </Stack>
-    </Box>
+        <Button
+          href="/SignUp"
+          variant="outlined"
+          size="large"
+          sx={{
+            backgroundColor: "000",
+            color: "#804F3B",
+            borderColor: "#804F3B",
+            border: 2,
+            marginTop: "10px",
+            marginLeft: "5px",
+          }}
+        >
+          Sign Up
+        </Button>
+      </Box>
+    </div>
   );
 };
 
