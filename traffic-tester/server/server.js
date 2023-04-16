@@ -12,7 +12,7 @@ app.get('/get', (req, res) => {
     
     connection.req(query).then((response) => {
         res.send(response[0]);
-        //console.log(response[0]);
+        console.log(response[0]);
     })
 })
 
