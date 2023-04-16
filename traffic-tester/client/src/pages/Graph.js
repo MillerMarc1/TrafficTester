@@ -33,7 +33,12 @@ const Graph = () => {
           <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
             Graph
           </Typography>
-          <Stack direction={"row"} alignItems={"center"} spacing={"20px"}>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            mt={"50px"}
+            spacing={"20px"}
+          >
             <Typography style={{ color: "#804F3B" }} variant="h4">
               Time
             </Typography>
@@ -84,6 +89,32 @@ const Graph = () => {
           >
             Edit
           </Button>
+          <Stack direction={"row"} mt={"180px"} spacing={"8px"}>
+            <Button
+              href="/load"
+              variant="outlined"
+              size="large"
+              sx={{
+                width: "100px",
+                color: "#804F3B",
+                borderColor: "#804F3B",
+              }}
+            >
+              Load
+            </Button>
+            <Button
+              href="/save"
+              variant="outlined"
+              size="large"
+              sx={{
+                width: "100px",
+                color: "#804F3B",
+                borderColor: "#804F3B",
+              }}
+            >
+              Save
+            </Button>
+          </Stack>
         </Stack>
         <Box margin={"auto"}>Graph goes here</Box>
       </Stack>

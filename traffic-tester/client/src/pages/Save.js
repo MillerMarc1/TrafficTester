@@ -7,7 +7,7 @@ const Save = () => {
   return (
     <Box>
       <Stack direction={"row"}>
-        <Stack alignContent={"center"}>
+        <Stack alignItems={"center"} pl={"10px"}>
           <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
             Save
           </Typography>
@@ -17,8 +17,25 @@ const Save = () => {
             onChange={(e) => {
               setName(e.target.value);
             }}
-          ></TextField>
+            sx={{
+              width: "200px",
+            }}
+          />
+          <Button
+            href="/graph"
+            variant="outlined"
+            size="large"
+            sx={{
+              marginTop: "15px",
+              width: "120px",
+              color: "#804F3B",
+              borderColor: "#804F3B",
+            }}
+          >
+            Save
+          </Button>
         </Stack>
+        <Box margin={"auto"}>Graph goes here</Box>
       </Stack>
     </Box>
   );
