@@ -39,6 +39,9 @@ const Edit = () => {
           >
             Edit Graph
           </Typography>
+          {
+            //Location dropdown menu
+          }
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -79,6 +82,9 @@ const Edit = () => {
               }}
             />
           </Stack>
+          {
+            //Scope1 dropdown menu
+          }
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -109,6 +115,9 @@ const Edit = () => {
               </FormControl>
             </Stack>
           </Stack>
+          {
+            //And/Or dropdown menu
+          }
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -139,6 +148,9 @@ const Edit = () => {
               </FormControl>
             </Stack>
           </Stack>
+          {
+            //Scope2 dropdown menu
+          }
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -169,6 +181,9 @@ const Edit = () => {
               </FormControl>
             </Stack>
           </Stack>
+          {
+            //Variable dropdown menu
+          }
           <Stack
             direction={"row"}
             alignItems={"center"}
