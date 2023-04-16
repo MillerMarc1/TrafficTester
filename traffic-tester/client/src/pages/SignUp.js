@@ -1,9 +1,7 @@
 import * as React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Avatar,
-  Link,
   Box,
   Typography,
   TextField,
@@ -13,15 +11,6 @@ import {
 } from "@mui/material";
 
 export default function SignUp() {
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     const data = new FormData(event.currentTarget);
-  //     console.log({
-  //       email: data.get('email'),
-  //       password: data.get('password'),
-  //     });
-  //   };
-
   return (
     <Container component="main" maxWidth="xs">
       <Box
