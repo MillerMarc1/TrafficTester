@@ -17,7 +17,7 @@ const Graph = () => {
   //const [options, setOptions] = useState([]);
 
   //Dummy set of options just to display some data in dropdown menus
-  const options = ["1900", "1905", "1910"];
+  const options = ["2016", "2017", "2018", "2019", "2020", "2021"];
 
   //This function executes when the Graph page is loaded
   useEffect(() => {
