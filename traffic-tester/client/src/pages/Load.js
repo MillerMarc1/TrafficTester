@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Stack, Typography, Button } from "@mui/material";
 
-const Load = ({}) => {
+const Load = () => {
   //Dummy queries that are just used to display on the list of previously saved queries
   const queries = ["q1", "q2"];
   return (
