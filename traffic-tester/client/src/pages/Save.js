@@ -32,6 +32,7 @@ const Save = () => {
               color: "#804F3B",
               borderColor: "#804F3B",
             }}
+            //onClick -> save new query name and settings, not quite sure how to do this yet
           >
             Save
           </Button>
