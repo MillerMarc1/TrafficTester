@@ -22,6 +22,8 @@ const Login = () => {
           sx={{
             backgroundColor: "000",
             marginTop: "100px",
+            color: "#804F3B",
+            borderColor: "#804F3B",
           }}
         >
           Login
