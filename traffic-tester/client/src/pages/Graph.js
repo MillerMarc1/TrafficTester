@@ -85,7 +85,7 @@ const Graph = () => {
             Edit
           </Button>
         </Stack>
-        //Graph goes here
+        <Box margin={"auto"}>Graph goes here</Box>
       </Stack>
     </Box>
   );
