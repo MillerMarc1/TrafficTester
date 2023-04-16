@@ -9,9 +9,18 @@ import {
   InputLabel,
   FormControl,
   MenuItem,
+  TextField,
 } from "@mui/material";
 
 const Edit = () => {
+  //Dummy lines that are just used to display on the list of currently displayed lines
+  const lines = [
+    "Los Angeles - Total Accidents",
+    "Orlando - Total Accident",
+    "Chicago - Total Accidents",
+  ];
+
+  const [locationType, setLocationType] = useState("");
   const [location, setLocation] = useState("");
   const [scope1, setScope1] = useState("");
   const [andOr, setAndOr] = useState("");
@@ -21,8 +30,13 @@ const Edit = () => {
   return (
     <Box>
       <Stack direction={"row"}>
-        <Stack alignItems={"center"} pl={"10px"}>
-          <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
+        <Stack alignItems={"left"} pl={"15px"}>
+          <Typography
+            style={{ color: "#804F3B" }}
+            variant="h3"
+            mt="50px"
+            align="left"
+          >
             Edit Graph
           </Typography>
           <Stack
@@ -39,14 +53,14 @@ const Edit = () => {
                 <InputLabel id="location-select-1">-Select-</InputLabel>
                 <Select
                   labelId="location-select-1"
-                  value={location}
+                  value={locationType}
                   size="large"
                   label={"-Select-"}
                   onChange={(event) => {
-                    setLocation(event.target.value);
+                    setLocationType(event.target.value);
                   }}
                 >
-                  {/* {locations.map((option, i) => (
+                  {/* {locationTypes.map((option, i) => (
                     <MenuItem key={i} value={option}>
                       {option}
                     </MenuItem>
@@ -54,6 +68,16 @@ const Edit = () => {
                 </Select>
               </FormControl>
             </Stack>
+            <TextField
+              placeholder="Location"
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+              }}
+              sx={{
+                width: "250px",
+              }}
+            />
           </Stack>
           <Stack
             direction={"row"}
@@ -183,14 +207,30 @@ const Edit = () => {
               marginTop: "100px",
               color: "#804F3B",
               borderColor: "#804F3B",
+              width: "200px",
+              ml: "50px",
             }}
             //OnClick -> add new line to graph and display in "Currently Displaying"
           >
             Add Line
           </Button>
+          <Button
+            href="/graph"
+            variant="outlined"
+            size="large"
+            sx={{
+              width: "200px",
+              mt: "10px",
+              color: "#804F3B",
+              borderColor: "#804F3B",
+              ml: "50px",
+            }}
+          >
+            Back to Graph
+          </Button>
         </Stack>
 
-        <Stack ml={"500px"}>
+        <Stack ml={"400px"}>
           <Typography style={{ color: "#804F3B" }} variant="h5" mt="50px">
             Currently Displaying (Max 10)
           </Typography>
@@ -201,7 +241,19 @@ const Edit = () => {
             width={"500px"}
             height={"600px"}
           >
-            <Stack>{}</Stack>
+            <Stack>
+              {lines?.map((line, i) => (
+                <Typography
+                  key={i}
+                  value={line}
+                  variant="h6"
+                  m={"2px"}
+                  color={"#804F3B"}
+                >
+                  {line}
+                </Typography>
+              ))}
+            </Stack>
           </Box>
         </Stack>
       </Stack>
