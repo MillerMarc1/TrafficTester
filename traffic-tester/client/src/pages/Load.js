@@ -12,6 +12,20 @@ const Load = ({}) => {
           <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
             Load
           </Typography>
+          <Stack direction={"row"} mt={"500px"}>
+            <Button
+              href="/graph"
+              variant="outlined"
+              size="large"
+              sx={{
+                width: "130px",
+                color: "#804F3B",
+                borderColor: "#804F3B",
+              }}
+            >
+              Back to Graph
+            </Button>
+          </Stack>
         </Stack>
         <Box
           margin={"auto"}
@@ -20,17 +34,24 @@ const Load = ({}) => {
           width={"500px"}
           height={"600px"}
         >
-          {queries?.map((query, i) => (
-            <Typography
-              key={i}
-              value={query}
-              variant="h6"
-              m="4px"
-              color={"#804F3B"}
-            >
-              {query}
-            </Typography>
-          ))}
+          <Stack>
+            {
+              //onClick load the graph with settings already saved
+              queries?.map((query, i) => (
+                <Button href="/graph">
+                  <Typography
+                    key={i}
+                    value={query}
+                    variant="h6"
+                    m="4px"
+                    color={"#804F3B"}
+                  >
+                    {query}
+                  </Typography>
+                </Button>
+              ))
+            }
+          </Stack>
         </Box>
       </Stack>
     </Box>
