@@ -28,7 +28,7 @@ const Graph = () => {
   return (
     <Box>
       <Stack direction={"row"}>
-        <Stack alignItems={"center"}>
+        <Stack alignItems={"center"} pl={"10px"}>
           <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
             Graph
           </Typography>
