@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Box, Stack, Typography, TextField, Button } from "@mui/material";
+import React from "react";
+import { Box, Stack, Typography, Button } from "@mui/material";
 
 const Load = ({}) => {
   //Dummy queries that are just used to display on the list of previously saved queries
