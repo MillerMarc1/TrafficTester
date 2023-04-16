@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Stack, Typography, TextField, Button } from "@mui/material";
 
 const Login = () => {
+  const [username, setUsername] = useState("Username");
+  const [password, setPassword] = useState("Password");
+
+  const handleUsername = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
   return (
     <Box>
       <Stack alignItems={"center"}>
@@ -13,8 +24,8 @@ const Login = () => {
         >
           Traffic Tester
         </Typography>
-        <TextField defaultValue={"Username"} />
-        <TextField defaultValue={"Password"} />
+        <TextField value={username} onChange={handleUsername} />
+        <TextField value={password} onChange={handlePassword} />
         <Button
           href="/graph"
           variant="outlined"
