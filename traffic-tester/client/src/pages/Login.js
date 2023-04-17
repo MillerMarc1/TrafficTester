@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Stack, Typography, TextField, Button, Grid } from "@mui/material";
+import {
+  Link,
+  Box,
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+} from "@mui/material";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -37,40 +45,29 @@ const Login = () => {
             value={password}
             onChange={handlePassword}
           />
+          <Button
+            href="/graph"
+            variant="outlined"
+            size="large"
+            sx={{
+              backgroundColor: "000",
+              color: "#804F3B",
+              borderColor: "#804F3B",
+              border: 2,
+            }}
+          >
+            Login
+          </Button>
         </Stack>
       </Box>
-      <Box alignItems={"center"}>
-        <Button
-          href="/graph"
-          variant="outlined"
-          size="large"
-          sx={{
-            backgroundColor: "000",
-            color: "#804F3B",
-            borderColor: "#804F3B",
-            border: 2,
-            marginTop: "10px",
-            marginRight: "5px",
-          }}
-        >
-          Login
-        </Button>
-        <Button
-          href="/SignUp"
-          variant="outlined"
-          size="large"
-          sx={{
-            backgroundColor: "000",
-            color: "#804F3B",
-            borderColor: "#804F3B",
-            border: 2,
-            marginTop: "10px",
-            marginLeft: "5px",
-          }}
-        >
-          Sign Up
-        </Button>
-      </Box>
+      <Grid justifyContent="center">
+        <Grid item>
+          <text> Don't have an account?&nbsp;</text>
+          <Link href="/SignUp" variant="body2">
+            Sign Up
+          </Link>
+        </Grid>
+      </Grid>
     </div>
   );
 };
