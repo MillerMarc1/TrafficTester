@@ -1,7 +1,19 @@
 import React, { useState } from "react";
-import { Box, Stack, Typography, TextField, Button } from "@mui/material";
+import {
+  Link,
+  Box,
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+} from "@mui/material";
+import bcrypt from "bcryptjs";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,42 +25,78 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
+  const handleLogin = async () => {
+    bcrypt.compare(password, await getUser(), function (err, result) {
+      if (result) {
+        console.log("match");
+        navigate("/graph");
+      } else {
+        console.log("no match");
+        alert("Incorrent username/password");
+      }
+    });
+  };
+
+  const getUser = async () => {
+    const response = await axios.get("http://localhost:4000/getUser", {
+      params: { username },
+    });
+
+    return response.data[0][0];
+  };
+
   return (
-    <Box>
-      <Stack alignItems={"center"}>
-        <Typography
-          style={{ color: "#804F3B" }}
-          variant="h1"
-          mt="50px"
-          mb="50px"
-        >
-          Traffic Tester
-        </Typography>
-        <TextField
-          placeholder="Username"
-          value={username}
-          onChange={handleUsername}
-        />
-        <TextField
-          placeholder="Password"
-          value={password}
-          onChange={handlePassword}
-        />
-        <Button
-          href="/graph"
-          variant="outlined"
-          size="large"
-          sx={{
-            backgroundColor: "000",
-            marginTop: "100px",
-            color: "#804F3B",
-            borderColor: "#804F3B",
-          }}
-        >
-          Login
-        </Button>
-      </Stack>
-    </Box>
+    <div>
+      <Box>
+        <Stack alignItems={"center"} spacing={1}>
+          <Typography
+            style={{ color: "#804F3B" }}
+            variant="h1"
+            mt="50px"
+            mb="50px"
+          >
+            Traffic Tester
+          </Typography>
+          <TextField
+            required
+            label="Username"
+            value={username}
+            onChange={handleUsername}
+          />
+          <TextField
+            required
+            label="Password"
+            type="password"
+            value={password}
+            onChange={handlePassword}
+          />
+          <Button
+            //href="/graph"
+            variant="outlined"
+            size="large"
+            onClick={handleLogin}
+            sx={{
+              backgroundColor: "000",
+              color: "#804F3B",
+              borderColor: "#804F3B",
+              border: 2,
+            }}
+          >
+            Login
+          </Button>
+        </Stack>
+      </Box>
+      <Grid justifyContent="center">
+        <Grid item>
+          <p>
+            Don't have an account?&nbsp;
+            <Link href="/SignUp" variant="body2">
+              Sign Up
+            </Link>
+          </p>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 
