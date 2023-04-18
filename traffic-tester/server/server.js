@@ -8,8 +8,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/get", (req, res) => {
-  const query = "SELECT * FROM USERSTEST";
-
+  const query = req.query.query;
   connection.req(query).then((response) => {
     res.send(response);
     console.log(response);
