@@ -29,7 +29,7 @@ const Login = () => {
     bcrypt.compare(password, await getUser(), function (err, result) {
       if (result) {
         console.log("match");
-        navigate("/graph");
+        navigate("/Homepage");
       } else {
         console.log("no match");
         alert("Incorrent username/password");
