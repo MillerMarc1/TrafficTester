@@ -8,8 +8,12 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+import bcrypt from "bcryptjs";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,6 +23,26 @@ const Login = () => {
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleLogin = async () => {
+    bcrypt.compare(password, await getUser(), function (err, result) {
+      if (result) {
+        console.log("match");
+        navigate("/graph");
+      } else {
+        console.log("no match");
+        alert("Incorrent username/password");
+      }
+    });
+  };
+
+  const getUser = async () => {
+    const response = await axios.get("http://localhost:4000/getUser", {
+      params: { username },
+    });
+
+    return response.data[0][0];
   };
 
   return (
@@ -42,13 +66,15 @@ const Login = () => {
           <TextField
             required
             label="Password"
+            type="password"
             value={password}
             onChange={handlePassword}
           />
           <Button
-            href="/graph"
+            //href="/graph"
             variant="outlined"
             size="large"
+            onClick={handleLogin}
             sx={{
               backgroundColor: "000",
               color: "#804F3B",
@@ -62,10 +88,12 @@ const Login = () => {
       </Box>
       <Grid justifyContent="center">
         <Grid item>
-          <text> Don't have an account?&nbsp;</text>
-          <Link href="/SignUp" variant="body2">
-            Sign Up
-          </Link>
+          <p>
+            Don't have an account?&nbsp;
+            <Link href="/SignUp" variant="body2">
+              Sign Up
+            </Link>
+          </p>
         </Grid>
       </Grid>
     </div>

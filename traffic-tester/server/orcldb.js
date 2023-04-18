@@ -2,6 +2,7 @@ const oracledb = require("oracledb");
 const dotenv = require("dotenv");
 dotenv.config();
 //oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+oracledb.autoCommit = true;
 const userVar = process.env.REACT_APP_USER;
 const passwordVar = process.env.REACT_APP_PASSWORD;
 const connString = process.env.REACT_APP_CONN_STRING;
