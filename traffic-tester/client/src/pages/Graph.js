@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Line, Scatter } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import Navbar from "./Navbar";
 
 const Graph = () => {
   const states = [
