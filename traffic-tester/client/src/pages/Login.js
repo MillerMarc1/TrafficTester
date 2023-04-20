@@ -57,6 +57,11 @@ const Login = () => {
           >
             Traffic Tester
           </Typography>
+          <img
+            src={require("../assets/animated-collision.gif")}
+            alt="loading..."
+          />
+          <br></br>
           <TextField
             required
             label="Username"

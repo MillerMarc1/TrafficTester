@@ -17,7 +17,7 @@ app.get("/get", (req, res) => {
 
 app.post("/addUser", (req, res) => {
   console.log(req.body.user);
-  const sqlCode = `INSERT INTO USERSTEST (firstName, lastName, email, username, password) VALUES (${req.body.user})`;
+  const sqlCode = `INSERT INTO DVULOPAS.USERSTEST (firstName, lastName, email, username, password) VALUES (${req.body.user})`;
   console.log(sqlCode);
   connection.req(sqlCode).then((response) => {
     res.send("user added");
@@ -27,7 +27,7 @@ app.post("/addUser", (req, res) => {
 
 app.get("/getUser", (req, res) => {
   console.log(req.query.username);
-  const query = `SELECT PASSWORD FROM USERSTEST WHERE USERNAME = '${req.query.username}'`;
+  const query = `SELECT PASSWORD FROM DVULOPAS.USERSTEST WHERE USERNAME = '${req.query.username}'`;
 
   connection.req(query).then((response) => {
     res.send(response);

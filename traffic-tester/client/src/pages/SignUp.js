@@ -9,13 +9,16 @@ import {
   Grid,
   Container,
 } from "@mui/material";
+import { styled } from "@mui/system";
 import bcrypt from "bcryptjs";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const salt = bcrypt.genSaltSync(10);
 let user = "";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,6 +68,7 @@ export default function SignUp() {
       console.log(user);
       addUser();
       reset();
+      navigate("/");
     }
   };
 
@@ -100,6 +104,11 @@ export default function SignUp() {
     setPassword(e.target.value);
   };
 
+  const StyledImg = styled("img")({
+    height: 45,
+    marginLeft: 16,
+  });
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -116,6 +125,10 @@ export default function SignUp() {
         <Typography variant="h3" color="#804F3B">
           Sign Up
         </Typography>
+        <StyledImg
+          src={require("../assets/animated-collision.gif")}
+          alt="loading..."
+        />
         <Box component="form" sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>

@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  AppBar,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import axios from "axios";
-import { Bar, Line, Scatter, Bubble } from "react-chartjs-2";
+import { Line, Scatter } from "react-chartjs-2";
 import Navbar from "./Navbar";
 
 const Homepage = () => {
@@ -81,7 +73,12 @@ const Homepage = () => {
   const [isLoading5, setIsLoading5] = useState(true);
   const [isLoading6, setIsLoading6] = useState(true);
   const [isLoading7, setIsLoading7] = useState(true);
+  const [options1, setOptions1] = useState(null);
+  const [options2, setOptions2] = useState(null);
   const [options3, setOptions3] = useState(null);
+  const [options4, setOptions4] = useState(null);
+  const [options5, setOptions5] = useState(null);
+  const [options6, setOptions6] = useState(null);
 
   const getQuery = async (query) => {
     const response = await axios.get("http://localhost:4000/get", {
@@ -142,6 +139,23 @@ const Homepage = () => {
         ],
       });
 
+      setOptions1({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Month",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Accident Frequency",
+            },
+          },
+        },
+      });
+
       setIsLoading1(false);
       //console.log(tq1[0]);
     };
@@ -176,6 +190,23 @@ const Homepage = () => {
             data: tq2AccCount,
           },
         ],
+      });
+
+      setOptions2({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Wind Speed (mph)",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Accident Frequency",
+            },
+          },
+        },
       });
 
       setIsLoading2(false);
@@ -333,6 +364,23 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
         ],
       });
 
+      setOptions4({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Year-Month",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Accident Frequency",
+            },
+          },
+        },
+      });
+
       setIsLoading4(false);
       //console.log(tq1[0]);
     };
@@ -383,6 +431,23 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
             tension: 0.1,
           },
         ],
+      });
+
+      setOptions5({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Year-Month",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Accident Frequency",
+            },
+          },
+        },
       });
 
       setIsLoading5(false);
@@ -527,6 +592,23 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
         ],
       });
 
+      setOptions6({
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Year-Month",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Accident Frequency",
+            },
+          },
+        },
+      });
+
       setIsLoading6(false);
       //console.log(tq1[0]);
     };
@@ -561,7 +643,7 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
           height: "0.5px",
         }}
       />
-      <h2>Correlation between accident frequency and hour of day</h2>
+      <h2>Correlation Between Accident Frequency and Hour of Day</h2>
       {isLoading3 ? (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <CircularProgress />
@@ -585,7 +667,7 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
         </Box>
       ) : (
         <div>
-          <Scatter data={data} />
+          <Scatter data={data} options={options1} />
         </div>
       )}
       <hr
@@ -594,14 +676,14 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
           height: "1px",
         }}
       />
-      <h2>Accident Frequency Day vs. Night</h2>
+      <h2>Accident Frequency (Day vs. Night)</h2>
       {isLoading4 ? (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <CircularProgress />
         </Box>
       ) : (
         <div>
-          <Line data={data4} />
+          <Line data={data4} options={options4} />
         </div>
       )}
       <hr
@@ -617,7 +699,7 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
         </Box>
       ) : (
         <div>
-          <Line data={data5} />
+          <Line data={data5} options={options5} />
         </div>
       )}
       <hr
@@ -626,14 +708,16 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
           height: "1px",
         }}
       />
-      <h2>County</h2>
+      <h2>
+        Accidents for the Top 10 Most Dangerous Counties in Florida each Month
+      </h2>
       {isLoading6 ? (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <CircularProgress />
         </Box>
       ) : (
         <div>
-          <Line data={data6} />
+          <Line data={data6} options={options6} />
         </div>
       )}
       <hr
@@ -649,7 +733,7 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
         </Box>
       ) : (
         <div>
-          <Line data={data2} />{" "}
+          <Line data={data2} options={options2} />
         </div>
       )}
       <hr
@@ -664,7 +748,9 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
           <CircularProgress />
         </Box>
       ) : (
-        <div>Total Tuple Count: {tupleCount}</div>
+        <div>
+          <h2>Total Tuple Count: {tupleCount.toLocaleString()}</h2>
+        </div>
       )}
     </div>
   );
