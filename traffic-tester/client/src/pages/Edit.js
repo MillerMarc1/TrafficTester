@@ -1,5 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+
 import {
   Box,
   Stack,
@@ -9,7 +10,6 @@ import {
   InputLabel,
   FormControl,
   MenuItem,
-  TextField,
 } from "@mui/material";
 
 const Edit = () => {
@@ -19,13 +19,87 @@ const Edit = () => {
     "Orlando - Total Accident",
     "Chicago - Total Accidents",
   ];
+  const states = [
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "ID",
+    "IL",
+    "IN",
+    "IA",
+    "KS",
+    "KY",
+    "LA",
+    "ME",
+    "MD",
+    "MA",
+    "MI",
+    "MN",
+    "MS",
+    "MO",
+    "MT",
+    "NE",
+    "NV",
+    "NH",
+    "NJ",
+    "NM",
+    "NY",
+    "NC",
+    "ND",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VT",
+    "VA",
+    "WA",
+    "WV",
+    "WI",
+    "WY",
+  ];
 
-  const [locationType, setLocationType] = useState("");
-  const [location, setLocation] = useState("");
-  const [scope1, setScope1] = useState("");
-  const [andOr, setAndOr] = useState("");
-  const [scope2, setScope2] = useState("");
-  const [variable, setVariable] = useState("");
+  const years = [2016, 2017, 2018, 2019, 2020, 2021];
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const [state, setState] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+
+  const getQuery = async (query) => {
+    const response = await axios.get("http://localhost:4000/get", {
+      params: { query },
+    });
+
+    return response.data[0][0];
+  };
 
   return (
     <Box>
@@ -39,9 +113,7 @@ const Edit = () => {
           >
             Edit Graph
           </Typography>
-          {
-            //Location dropdown menu
-          }
+
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -49,42 +121,29 @@ const Edit = () => {
             spacing={"20px"}
           >
             <Typography style={{ color: "#804F3B" }} variant="h6">
-              Location
+              State
             </Typography>
             <Stack minWidth={"200px"} spacing={"5px"}>
               <FormControl fullWidth>
                 <InputLabel id="location-select-1">-Select-</InputLabel>
                 <Select
                   labelId="location-select-1"
-                  value={locationType}
+                  value={state}
                   size="large"
                   label={"-Select-"}
                   onChange={(event) => {
-                    setLocationType(event.target.value);
+                    setState(event.target.value);
                   }}
                 >
-                  {/* {locationTypes.map((option, i) => (
+                  {states.map((option, i) => (
                     <MenuItem key={i} value={option}>
                       {option}
                     </MenuItem>
-                  ))} */}
+                  ))}
                 </Select>
               </FormControl>
             </Stack>
-            <TextField
-              placeholder="Location"
-              value={location}
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
-              sx={{
-                width: "250px",
-              }}
-            />
           </Stack>
-          {
-            //Scope1 dropdown menu
-          }
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -92,32 +151,30 @@ const Edit = () => {
             spacing={"20px"}
           >
             <Typography style={{ color: "#804F3B" }} variant="h6">
-              Scope
+              Year
             </Typography>
             <Stack minWidth={"200px"} spacing={"5px"}>
               <FormControl fullWidth>
                 <InputLabel id="location-select-1">-Select-</InputLabel>
                 <Select
                   labelId="location-select-1"
-                  value={scope1}
+                  value={year}
                   size="large"
                   label={"-Select-"}
                   onChange={(event) => {
-                    setScope1(event.target.value);
+                    setYear(event.target.value);
                   }}
                 >
-                  {/* {options.map((option, i) => (
+                  {years.map((option, i) => (
                     <MenuItem key={i} value={option}>
                       {option}
                     </MenuItem>
-                  ))} */}
+                  ))}
                 </Select>
               </FormControl>
             </Stack>
           </Stack>
-          {
-            //And/Or dropdown menu
-          }
+
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -125,95 +182,30 @@ const Edit = () => {
             spacing={"20px"}
           >
             <Typography style={{ color: "#804F3B" }} variant="h6">
-              And/Or
+              Month
             </Typography>
             <Stack minWidth={"200px"} spacing={"5px"}>
               <FormControl fullWidth>
                 <InputLabel id="location-select-1">-Select-</InputLabel>
                 <Select
                   labelId="location-select-1"
-                  value={andOr}
+                  value={month}
                   size="large"
                   label={"-Select-"}
                   onChange={(event) => {
-                    setAndOr(event.target.value);
+                    setMonth(event.target.value);
                   }}
                 >
-                  {/* {options.map((option, i) => (
+                  {months.map((option, i) => (
                     <MenuItem key={i} value={option}>
                       {option}
                     </MenuItem>
-                  ))} */}
+                  ))}
                 </Select>
               </FormControl>
             </Stack>
           </Stack>
-          {
-            //Scope2 dropdown menu
-          }
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            mt={"30px"}
-            spacing={"20px"}
-          >
-            <Typography style={{ color: "#804F3B" }} variant="h6">
-              Scope
-            </Typography>
-            <Stack minWidth={"200px"} spacing={"5px"}>
-              <FormControl fullWidth>
-                <InputLabel id="location-select-1">-Select-</InputLabel>
-                <Select
-                  labelId="location-select-1"
-                  value={scope2}
-                  size="large"
-                  label={"-Select-"}
-                  onChange={(event) => {
-                    setScope2(event.target.value);
-                  }}
-                >
-                  {/* {options.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))} */}
-                </Select>
-              </FormControl>
-            </Stack>
-          </Stack>
-          {
-            //Variable dropdown menu
-          }
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            mt={"30px"}
-            spacing={"20px"}
-          >
-            <Typography style={{ color: "#804F3B" }} variant="h6">
-              Variable
-            </Typography>
-            <Stack minWidth={"200px"} spacing={"5px"}>
-              <FormControl fullWidth>
-                <InputLabel id="location-select-1">-Select-</InputLabel>
-                <Select
-                  labelId="location-select-1"
-                  value={variable}
-                  size="large"
-                  label={"-Select-"}
-                  onChange={(event) => {
-                    setVariable(event.target.value);
-                  }}
-                >
-                  {/* {variables.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))} */}
-                </Select>
-              </FormControl>
-            </Stack>
-          </Stack>
+
           <Button
             variant="outlined"
             size="large"
@@ -245,7 +237,7 @@ const Edit = () => {
           </Button>
         </Stack>
 
-        <Stack ml={"400px"}>
+        <Stack ml={"600px"}>
           <Typography style={{ color: "#804F3B" }} variant="h5" mt="50px">
             Currently Displaying (Max 10)
           </Typography>
