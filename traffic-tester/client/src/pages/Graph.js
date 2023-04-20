@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import Navbar from "./Navbar";
 
 const Graph = () => {
   const states = [
@@ -139,88 +140,92 @@ const Graph = () => {
   }, [year, state]);
 
   return (
-    <Box>
-      <Stack direction={"row"}>
-        <Stack alignItems={"center"} pl={"10px"}>
-          <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
-            Graph
-          </Typography>
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            mt={"30px"}
-            spacing={"20px"}
-          >
-            <Typography style={{ color: "#804F3B" }} variant="h6">
-              State
+    <div>
+      {" "}
+      <Navbar></Navbar>
+      <Box>
+        <Stack direction={"row"}>
+          <Stack alignItems={"center"} pl={"10px"}>
+            <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
+              Graph
             </Typography>
-            <Stack minWidth={"200px"} spacing={"5px"}>
-              <FormControl fullWidth>
-                <InputLabel id="location-select-1">-Select-</InputLabel>
-                <Select
-                  labelId="location-select-1"
-                  value={state}
-                  size="large"
-                  label={"-Select-"}
-                  onChange={(event) => {
-                    setState(event.target.value);
-                  }}
-                >
-                  {states.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              mt={"30px"}
+              spacing={"20px"}
+            >
+              <Typography style={{ color: "#804F3B" }} variant="h6">
+                State
+              </Typography>
+              <Stack minWidth={"200px"} spacing={"5px"}>
+                <FormControl fullWidth>
+                  <InputLabel id="location-select-1">-Select-</InputLabel>
+                  <Select
+                    labelId="location-select-1"
+                    value={state}
+                    size="large"
+                    label={"-Select-"}
+                    onChange={(event) => {
+                      setState(event.target.value);
+                    }}
+                  >
+                    {states.map((option, i) => (
+                      <MenuItem key={i} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Stack>
             </Stack>
-          </Stack>
 
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            mt={"30px"}
-            spacing={"20px"}
-          >
-            <Typography style={{ color: "#804F3B" }} variant="h6">
-              Year
-            </Typography>
-            <Stack minWidth={"200px"} spacing={"5px"}>
-              <FormControl fullWidth>
-                <InputLabel id="location-select-1">-Select-</InputLabel>
-                <Select
-                  labelId="location-select-1"
-                  value={year}
-                  size="large"
-                  label={"-Select-"}
-                  onChange={(event) => {
-                    setYear(event.target.value);
-                  }}
-                >
-                  {years.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              mt={"30px"}
+              spacing={"20px"}
+            >
+              <Typography style={{ color: "#804F3B" }} variant="h6">
+                Year
+              </Typography>
+              <Stack minWidth={"200px"} spacing={"5px"}>
+                <FormControl fullWidth>
+                  <InputLabel id="location-select-1">-Select-</InputLabel>
+                  <Select
+                    labelId="location-select-1"
+                    value={year}
+                    size="large"
+                    label={"-Select-"}
+                    onChange={(event) => {
+                      setYear(event.target.value);
+                    }}
+                  >
+                    {years.map((option, i) => (
+                      <MenuItem key={i} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Stack>
             </Stack>
           </Stack>
+          <Box
+            width={"1000px"}
+            height={"800px"}
+            marginLeft={"100px"}
+            marginTop={"100px"}
+          >
+            {isLoading ? (
+              <Typography margin={"auto"}>Select a year and state</Typography>
+            ) : (
+              <Line data={data} />
+            )}
+          </Box>
         </Stack>
-        <Box
-          width={"1000px"}
-          height={"800px"}
-          marginLeft={"100px"}
-          marginTop={"100px"}
-        >
-          {isLoading ? (
-            <Typography margin={"auto"}>Select a year and state</Typography>
-          ) : (
-            <Line data={data} />
-          )}
-        </Box>
-      </Stack>
-    </Box>
+      </Box>
+    </div>
   );
 };
 
