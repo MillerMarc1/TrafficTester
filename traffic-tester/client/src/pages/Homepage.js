@@ -552,7 +552,7 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
   }, []);
 
   return (
-    <div>
+    <div align="center">
       <Navbar></Navbar>
       <h1 style={{ fontSize: "45px" }}>Trend Queries</h1>
       <hr
