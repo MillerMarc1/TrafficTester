@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Line, Scatter } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import Navbar from "./Navbar";
 
 const Graph = () => {
   const states = [
@@ -188,6 +189,7 @@ const Graph = () => {
 
   return (
     <Box>
+      <Navbar></Navbar>
       <Stack direction={"row"}>
         <Stack alignItems={"center"} pl={"10px"}>
           <Typography style={{ color: "#804F3B" }} variant="h3" m="50px">
