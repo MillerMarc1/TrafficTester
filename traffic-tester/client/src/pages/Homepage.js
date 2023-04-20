@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
-import { Box, CircularProgress, Container } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  AppBar,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import { Bar, Line, Scatter, Bubble } from "react-chartjs-2";
+import Navbar from "./Navbar";
 
 const Homepage = () => {
   const years = [2016, 2017, 2018, 2019, 2020, 2021];
@@ -64,12 +73,14 @@ const Homepage = () => {
   const [data4, setData4] = useState(null);
   const [data5, setData5] = useState(null);
   const [data6, setData6] = useState(null);
+  const [tupleCount, setTupleCount] = useState(null);
   const [isLoading1, setIsLoading1] = useState(true);
   const [isLoading2, setIsLoading2] = useState(true);
   const [isLoading3, setIsLoading3] = useState(true);
   const [isLoading4, setIsLoading4] = useState(true);
   const [isLoading5, setIsLoading5] = useState(true);
   const [isLoading6, setIsLoading6] = useState(true);
+  const [isLoading7, setIsLoading7] = useState(true);
   const [options3, setOptions3] = useState(null);
 
   const getQuery = async (query) => {
@@ -520,30 +531,29 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
       //console.log(tq1[0]);
     };
     fetchTQ6();
-  }, []);
 
-  // const data13 = {
-  //   labels: tq3_hrs,
-  //   datasets: [
-  //     {
-  //       label: "2016",
-  //       data: [65, 59, 80, 81, 56, 55, 40],
-  //       fill: false,
-  //       borderColor: "rgb(75, 192, 192)",
-  //       tension: 0.1,
-  //     },
-  //     {
-  //       label: "2017",
-  //       data: [12, 55, 444, 1, 55, 12, 40],
-  //       fill: false,
-  //       borderColor: "rgb(220, 100, 192)",
-  //       tension: 0.1,
-  //     },
-  //   ],
-  // };
+    const fetchTupleCount = async () => {
+      let query = `
+      SELECT SUM(num_rows) FROM (
+        SELECT COUNT(*) AS num_rows FROM DVULOPAS.ACCIDENT
+        UNION ALL SELECT COUNT(*) AS num_rows FROM DVULOPAS.LOCATION
+        UNION ALL SELECT COUNT(*) AS num_rows FROM DVULOPAS.PERIOD_OF_DAY
+        UNION ALL SELECT COUNT(*) AS num_rows FROM DVULOPAS.POI
+        UNION ALL SELECT COUNT(*) AS num_rows FROM DVULOPAS.USERSTEST
+        UNION ALL SELECT COUNT(*) AS num_rows FROM DVULOPAS.WEATHER
+      )`;
+      const res = await getQuery1(query);
+      setTupleCount(res);
+
+      setIsLoading7(false);
+      return res;
+    };
+    fetchTupleCount();
+  }, []);
 
   return (
     <div>
+      <Navbar></Navbar>
       <h1 style={{ fontSize: "45px" }}>Trend Queries</h1>
       <hr
         style={{
@@ -641,6 +651,20 @@ separated by Daytime(6:00am-5:59pm) or Nighttime(6:00pm - 5:59am).*/
         <div>
           <Line data={data2} />{" "}
         </div>
+      )}
+      <hr
+        style={{
+          background: "#000000",
+          height: "1px",
+        }}
+      />
+
+      {isLoading7 ? (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <div>Total Tuple Count: {tupleCount}</div>
       )}
     </div>
   );
