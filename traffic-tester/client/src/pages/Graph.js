@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Box,
   Stack,
@@ -12,12 +12,87 @@ import {
 } from "@mui/material";
 
 const Graph = () => {
-  const [time1, setTime1] = useState("");
-  const [time2, setTime2] = useState("");
-  //const [options, setOptions] = useState([]);
+  const states = [
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "ID",
+    "IL",
+    "IN",
+    "IA",
+    "KS",
+    "KY",
+    "LA",
+    "ME",
+    "MD",
+    "MA",
+    "MI",
+    "MN",
+    "MS",
+    "MO",
+    "MT",
+    "NE",
+    "NV",
+    "NH",
+    "NJ",
+    "NM",
+    "NY",
+    "NC",
+    "ND",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VT",
+    "VA",
+    "WA",
+    "WV",
+    "WI",
+    "WY",
+  ];
 
-  //Dummy set of options just to display some data in dropdown menus
-  const options = ["2016", "2017", "2018", "2019", "2020", "2021"];
+  const years = [2016, 2017, 2018, 2019, 2020, 2021];
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const [state, setState] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+
+  const getQuery = async (query) => {
+    const response = await axios.get("http://localhost:4000/get", {
+      params: { query },
+    });
+
+    return response.data[0][0];
+  };
 
   //This function executes when the Graph page is loaded
   useEffect(() => {
@@ -35,44 +110,25 @@ const Graph = () => {
           <Stack
             direction={"row"}
             alignItems={"center"}
-            mt={"50px"}
+            mt={"30px"}
             spacing={"20px"}
           >
-            <Typography style={{ color: "#804F3B" }} variant="h4">
-              Time
+            <Typography style={{ color: "#804F3B" }} variant="h6">
+              State
             </Typography>
-            <Stack minWidth={"200px"} spacing={"12px"}>
+            <Stack minWidth={"200px"} spacing={"5px"}>
               <FormControl fullWidth>
-                <InputLabel id="graph-time-select-1">-Select-</InputLabel>
+                <InputLabel id="location-select-1">-Select-</InputLabel>
                 <Select
-                  labelId="graph-time-select-1"
-                  value={time1}
+                  labelId="location-select-1"
+                  value={state}
+                  size="large"
                   label={"-Select-"}
                   onChange={(event) => {
-                    setTime1(event.target.value);
+                    setState(event.target.value);
                   }}
                 >
-                  {options.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Typography style={{ color: "#804F3B" }} variant="h6">
-                to
-              </Typography>
-              <FormControl>
-                <InputLabel id="graph-time-select-2">-Select-</InputLabel>
-                <Select
-                  labelId="graph-time-select-2"
-                  value={time2}
-                  label={"-Select-"}
-                  onChange={(event) => {
-                    setTime2(event.target.value);
-                  }}
-                >
-                  {options.map((option, i) => (
+                  {states.map((option, i) => (
                     <MenuItem key={i} value={option}>
                       {option}
                     </MenuItem>
@@ -81,44 +137,67 @@ const Graph = () => {
               </FormControl>
             </Stack>
           </Stack>
-          <Button
-            href="/edit"
-            variant="outlined"
-            size="large"
-            sx={{
-              marginTop: "100px",
-              width: "150px",
-              color: "#804F3B",
-              borderColor: "#804F3B",
-            }}
+
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            mt={"30px"}
+            spacing={"20px"}
           >
-            Edit
-          </Button>
-          <Stack direction={"row"} mt={"180px"} spacing={"8px"}>
-            <Button
-              href="/load"
-              variant="outlined"
-              size="large"
-              sx={{
-                width: "100px",
-                color: "#804F3B",
-                borderColor: "#804F3B",
-              }}
-            >
-              Load
-            </Button>
-            <Button
-              href="/save"
-              variant="outlined"
-              size="large"
-              sx={{
-                width: "100px",
-                color: "#804F3B",
-                borderColor: "#804F3B",
-              }}
-            >
-              Save
-            </Button>
+            <Typography style={{ color: "#804F3B" }} variant="h6">
+              Year
+            </Typography>
+            <Stack minWidth={"200px"} spacing={"5px"}>
+              <FormControl fullWidth>
+                <InputLabel id="location-select-1">-Select-</InputLabel>
+                <Select
+                  labelId="location-select-1"
+                  value={year}
+                  size="large"
+                  label={"-Select-"}
+                  onChange={(event) => {
+                    setYear(event.target.value);
+                  }}
+                >
+                  {years.map((option, i) => (
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Stack>
+          </Stack>
+
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            mt={"30px"}
+            spacing={"20px"}
+          >
+            <Typography style={{ color: "#804F3B" }} variant="h6">
+              Month
+            </Typography>
+            <Stack minWidth={"200px"} spacing={"5px"}>
+              <FormControl fullWidth>
+                <InputLabel id="location-select-1">-Select-</InputLabel>
+                <Select
+                  labelId="location-select-1"
+                  value={month}
+                  size="large"
+                  label={"-Select-"}
+                  onChange={(event) => {
+                    setMonth(event.target.value);
+                  }}
+                >
+                  {months.map((option, i) => (
+                    <MenuItem key={i} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Stack>
           </Stack>
         </Stack>
         <Box margin={"auto"}>Graph goes here</Box>
