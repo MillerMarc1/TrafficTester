@@ -10,6 +10,8 @@ import {
   FormControl,
   MenuItem,
 } from "@mui/material";
+import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
 
 const Graph = () => {
   const states = [
@@ -81,24 +83,60 @@ const Graph = () => {
     "November",
     "December",
   ];
+  const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   const [state, setState] = useState("");
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [data, setData] = useState({
+    labels: nums,
+    datasets: [
+      {
+        label: `Highest Number of Accident in ${state} Each Month in ${year}`,
+        data: nums,
+      },
+    ],
+  });
 
   const getQuery = async (query) => {
     const response = await axios.get("http://localhost:4000/get", {
       params: { query },
     });
 
-    return response.data[0][0];
+    return response.data;
   };
 
   //This function executes when the Graph page is loaded
   useEffect(() => {
-    //Get years from data set and set options to years
-    //setOptions()
-  }, []);
+    const fetchData = async () => {
+      let query = `SELECT EXTRACT(MONTH FROM START_TIME) AS MONTH, COUNT(AID) AS Count
+      FROM DVULOPAS.accident NATURAL JOIN DVULOPAS.location
+      WHERE EXTRACT(YEAR FROM START_TIME) = '${year}' AND location.state = '${state}'
+      GROUP BY EXTRACT(MONTH FROM START_TIME)
+      ORDER BY EXTRACT(MONTH FROM START_TIME)`;
+      const res = await getQuery(query);
+      console.log(res);
+
+      setData({
+        labels: res.map((data) => {
+          return months[data[0] - 1];
+        }),
+        datasets: [
+          {
+            label: `Number of Accidents in ${state} Each Month in ${year}`,
+            data: res.map((data) => {
+              return data[1];
+            }),
+          },
+        ],
+      });
+      //setIsLoading(false);
+    };
+
+    fetchData();
+  }, [year, state]);
 
   return (
     <Box>
@@ -168,39 +206,19 @@ const Graph = () => {
               </FormControl>
             </Stack>
           </Stack>
-
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            mt={"30px"}
-            spacing={"20px"}
-          >
-            <Typography style={{ color: "#804F3B" }} variant="h6">
-              Month
-            </Typography>
-            <Stack minWidth={"200px"} spacing={"5px"}>
-              <FormControl fullWidth>
-                <InputLabel id="location-select-1">-Select-</InputLabel>
-                <Select
-                  labelId="location-select-1"
-                  value={month}
-                  size="large"
-                  label={"-Select-"}
-                  onChange={(event) => {
-                    setMonth(event.target.value);
-                  }}
-                >
-                  {months.map((option, i) => (
-                    <MenuItem key={i} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Stack>
-          </Stack>
         </Stack>
-        <Box margin={"auto"}>Graph goes here</Box>
+        <Box
+          width={"1000px"}
+          height={"800px"}
+          marginLeft={"100px"}
+          marginTop={"100px"}
+        >
+          {isLoading ? (
+            <Typography margin={"auto"}>Select a year and state</Typography>
+          ) : (
+            <Line data={data} />
+          )}
+        </Box>
       </Stack>
     </Box>
   );
